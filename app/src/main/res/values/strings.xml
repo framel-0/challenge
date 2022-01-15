@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">challenge</string>
+    <string name="auth_failure_msg">Login or Auth Failed</string>
+    <string name="user_post_error_msg">Failed to get Posts or Users</string>
+</resources>
