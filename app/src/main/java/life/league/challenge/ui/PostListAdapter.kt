@@ -8,7 +8,8 @@ import life.league.challenge.data.models.Post
 import life.league.challenge.data.models.User
 import life.league.challenge.databinding.ListItemPostBinding
 
-class PostListAdapter : RecyclerView.Adapter<PostViewHolder>() {
+class PostListAdapter(private val onPostClick: (Post) -> Unit) :
+    RecyclerView.Adapter<PostViewHolder>() {
 
     private var _posts: ArrayList<Post> = arrayListOf()
     private var _users: ArrayList<User> = arrayListOf()
@@ -16,7 +17,7 @@ class PostListAdapter : RecyclerView.Adapter<PostViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = ListItemPostBinding.inflate(layoutInflater, parent, false)
-        return PostViewHolder(binding)
+        return PostViewHolder(binding, onPostClick)
     }
 
     fun setPosts(posts: ArrayList<Post>, users: ArrayList<User>) {

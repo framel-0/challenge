@@ -3,6 +3,7 @@ package life.league.challenge.ui
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,6 +14,7 @@ import life.league.challenge.data.models.Post
 import life.league.challenge.data.models.User
 import life.league.challenge.databinding.ActivityMainBinding
 import life.league.challenge.internal.Result
+import life.league.challenge.ui.base.ScopedActivity
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein
 import org.kodein.di.generic.instance
@@ -38,11 +40,7 @@ class MainActivity : ScopedActivity(), KodeinAware {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        val ab: ActionBar? = actionBar
-//
-//        ab
-//
-//        MainActivity.this.setTitle("Your Title");
+        supportActionBar?.setTitle("Posts")
 
         val progressBar = binding.progressBar
 
@@ -105,11 +103,15 @@ class MainActivity : ScopedActivity(), KodeinAware {
                     setupPostRecyclerView(posts, users)
             })
 
+        binding.buttonRefresh.setOnClickListener {
+            auth()
+        }
+
 
     }
 
     private fun showFailed(@StringRes errorString: Int) {
-        binding.textMessage.visibility = View.VISIBLE
+        binding.groupRefresh.visibility = View.VISIBLE
         binding.textMessage.text = getString(errorString)
     }
 
@@ -127,10 +129,15 @@ class MainActivity : ScopedActivity(), KodeinAware {
 
     private fun setupPostRecyclerView(posts: ArrayList<Post>, users: ArrayList<User>) {
         val recyclerView = binding.listPost
-        val postRecyclerAdapter = PostListAdapter()
+        val postRecyclerAdapter = PostListAdapter(::onPostClick)
         recyclerView.adapter = postRecyclerAdapter
         recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         postRecyclerAdapter.setPosts(posts, users)
+    }
+
+    private fun onPostClick(post: Post) {
+        val text = "${post.title} clicked"
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show()
     }
 
 }

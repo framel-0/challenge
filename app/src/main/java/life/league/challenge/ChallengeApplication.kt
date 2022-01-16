@@ -1,8 +1,8 @@
 package life.league.challenge
 
 import android.app.Application
-import life.league.challenge.data.datasource.NetworkDataSource
-import life.league.challenge.data.repository.Repository
+import life.league.challenge.data.datasource.*
+import life.league.challenge.data.repository.*
 import life.league.challenge.ui.MainViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -15,12 +15,12 @@ class ChallengeApplication : Application(), KodeinAware {
         import(androidXModule(this@ChallengeApplication))
 
         bind<NetworkDataSource>() with singleton {
-            NetworkDataSource(
+            NetworkDataSourceImpl(
             )
         }
 
         bind<Repository>() with singleton {
-            Repository(instance()
+            RepositoryImpl(instance()
             )
         }
 

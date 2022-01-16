@@ -8,11 +8,14 @@ import life.league.challenge.data.models.User
 import life.league.challenge.databinding.ListItemPostBinding
 import life.league.challenge.internal.GlideApp
 
-class PostViewHolder(private val binding: ListItemPostBinding) :
+class PostViewHolder(private val binding: ListItemPostBinding, onPostClick: (Post) -> Unit) :
     RecyclerView.ViewHolder(binding.root) {
 
+    private lateinit var _post: Post
 
     fun bind(post: Post, user: User) {
+
+        _post = post
 
         binding.textUsername.text = user.name
 
@@ -25,5 +28,10 @@ class PostViewHolder(private val binding: ListItemPostBinding) :
 
     }
 
+    init {
+        itemView.setOnClickListener {
+            onPostClick(_post)
+        }
+    }
 
 }

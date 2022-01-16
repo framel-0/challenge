@@ -1,4 +1,4 @@
-package life.league.challenge.ui
+package life.league.challenge.ui.base
 
 import android.os.Bundle
 import android.os.Handler

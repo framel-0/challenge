@@ -3,7 +3,7 @@ package life.league.challenge.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import life.league.challenge.data.models.Account
+import life.league.challenge.data.network.response.LoginResponse
 import life.league.challenge.data.models.Post
 import life.league.challenge.data.models.User
 import life.league.challenge.data.network.response.PostResponse
@@ -14,8 +14,8 @@ import life.league.challenge.internal.lazyDeferred
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
 
-    private val _loginResult = MutableLiveData<Result<Account>>()
-    val loginResult: LiveData<Result<Account>> = _loginResult
+    private val _loginResult = MutableLiveData<Result<LoginResponse>>()
+    val loginResult: LiveData<Result<LoginResponse>> = _loginResult
 
     private val _usersResult = MutableLiveData<Result<UserResponse>>()
     val usersResult: LiveData<Result<UserResponse>> = _usersResult

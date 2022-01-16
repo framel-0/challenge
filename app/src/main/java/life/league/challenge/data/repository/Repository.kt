@@ -1,14 +1,16 @@
 package life.league.challenge.data.repository
 
-import life.league.challenge.data.datasource.NetworkDataSource
+import life.league.challenge.data.network.response.LoginResponse
+import life.league.challenge.data.network.response.PostResponse
+import life.league.challenge.data.network.response.UserResponse
+import life.league.challenge.internal.Result
 
-class Repository(private val networkDataSource: NetworkDataSource) {
+interface Repository {
 
-    suspend fun login(username: String, password: String) =
-        networkDataSource.auth(username, password)
+    suspend fun login(username: String, password: String): Result<LoginResponse>
 
-    suspend fun getUsers(apiKey: String) = networkDataSource.fetchUsers(apiKey)
+    suspend fun getUsers(apiKey: String): Result<UserResponse>
 
-    suspend fun getPosts(apiKey: String) = networkDataSource.fetchPosts(apiKey)
+    suspend fun getPosts(apiKey: String): Result<PostResponse>
 
 }
